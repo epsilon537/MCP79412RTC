@@ -18,25 +18,15 @@
 // constructor; this parameter defaults to true if not given.
 
 #include <MCP79412RTC.h>
+#include <stdlib.h>
+#include "i2c.h"
 
-// define consistent I2C functions
-#if defined(__AVR_ATtiny44__) || defined(__AVR_ATtiny84__) || defined(__AVR_ATtiny45__) || defined(__AVR_ATtiny85__)
-#include <TinyWireM.h>
-#define i2cBegin TinyWireM.begin
-#define i2cBeginTransmission TinyWireM.beginTransmission
-#define i2cEndTransmission TinyWireM.endTransmission
-#define i2cRequestFrom TinyWireM.requestFrom
-#define i2cRead TinyWireM.receive
-#define i2cWrite TinyWireM.send
-#else
-#include <Wire.h>
-#define i2cBegin Wire.begin
-#define i2cBeginTransmission Wire.beginTransmission
-#define i2cEndTransmission Wire.endTransmission
-#define i2cRequestFrom Wire.requestFrom
-#define i2cRead Wire.read
-#define i2cWrite Wire.write
-#endif
+#define i2cBegin i2c.begin
+#define i2cBeginTransmission i2c.beginTransmission
+#define i2cEndTransmission i2c.endTransmission
+#define i2cRequestFrom i2c.requestFrom
+#define i2cRead i2c.read
+#define i2cWrite i2c.write
 
 // MCP7941x I2C Addresses
 #define RTC_ADDR 0x6F
@@ -623,6 +613,4 @@ uint8_t __attribute__ ((noinline)) MCP79412RTC::bcd2dec(uint8_t n)
     return n - 6 * (n >> 4);
 }
 
-#if defined ARDUINO_ARCH_AVR
-MCP79412RTC RTC;      // instantiate an RTC object for AVR only
-#endif
+MCP79412RTC RTC;

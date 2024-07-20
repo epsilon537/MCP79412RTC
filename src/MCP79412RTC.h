@@ -20,8 +20,10 @@
 #ifndef MCP79412RTC_H_INCLUDED
 #define MCP79412RTC_H_INCLUDED
 
-#include <Arduino.h>
 #include <TimeLib.h>    // https://github.com/PaulStoffregen/Time
+#include <stdint.h>
+
+typedef uint8_t byte;
 
 // Alarm types for use with the enableAlarm() function
 enum {
@@ -90,9 +92,7 @@ class MCP79412RTC
         static uint8_t bcd2dec(uint8_t num);
 };
 
-#if defined ARDUINO_ARCH_AVR
 extern MCP79412RTC RTC;
-#endif
 
 #ifndef _BV
 #define _BV(bit) (1 << (bit))
